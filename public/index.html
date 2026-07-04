@@ -773,13 +773,14 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     </button>
     <div class="modal-inner">
 
-      <div class="prog-bar" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" id="prog-bar">
+      <div class="prog-bar" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="prog-bar">
         <div class="prog-step done" id="ps1"></div>
         <div class="prog-step" id="ps2"></div>
         <div class="prog-step" id="ps3"></div>
         <div class="prog-step" id="ps4"></div>
+        <div class="prog-step" id="ps5"></div>
       </div>
-      <span class="prog-label" id="prog-label">Etapa 1 de 4 · Contato</span>
+      <span class="prog-label" id="prog-label">Etapa 1 de 5 · Contato</span>
 
       <!-- Etapa 1 — Contato -->
       <div class="ms-step active" id="step-1">
@@ -814,10 +815,10 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
         <p class="form-disclaimer">Seus dados são confidenciais e usados apenas para contato.</p>
       </div>
 
-      <!-- Etapa 2 — Qualificação -->
+      <!-- Etapa 2 — Empresa -->
       <div class="ms-step" id="step-2">
-        <h3>Sobre o negócio</h3>
-        <p>Para nossa equipe entender o contexto antes de ligar.</p>
+        <h3>Sobre a empresa</h3>
+        <p>Nos ajude a entender o contexto do seu negócio.</p>
         <div class="form-row" style="margin-bottom:20px">
           <div class="form-group" style="margin-bottom:0">
             <label for="f-segmento">Segmento</label>
@@ -848,7 +849,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
             </select>
           </div>
         </div>
-        <span class="radio-label">Faturamento mensal da empresa</span>
+        <span class="radio-label">Faturamento mensal</span>
         <div class="radio-grid" id="rg-faturamento">
           <button type="button" class="radio-opt" data-group="faturamento" data-val="Até R$ 50 mil/mês"><span class="radio-dot"></span>Até R$ 50 mil/mês</button>
           <button type="button" class="radio-opt" data-group="faturamento" data-val="R$ 50 mil – R$ 200 mil/mês"><span class="radio-dot"></span>R$ 50 mil – R$ 200 mil/mês</button>
@@ -862,6 +863,22 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
           <button type="button" class="radio-opt" data-group="time" data-val="21 a 50 pessoas"><span class="radio-dot"></span>21 a 50 pessoas</button>
           <button type="button" class="radio-opt" data-group="time" data-val="Mais de 50 pessoas"><span class="radio-dot"></span>Mais de 50 pessoas</button>
         </div>
+        <div class="modal-nav">
+          <button class="btn-back" id="back-2">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7H3M6 4L3 7l3 3"/></svg>
+            Voltar
+          </button>
+          <button class="btn-next" id="next-2">
+            Continuar
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Etapa 3 — Perfil de decisão -->
+      <div class="ms-step" id="step-3">
+        <h3>Perfil de decisão</h3>
+        <p>Essas informações ajudam nossa equipe a preparar a conversa certa.</p>
         <span class="radio-label">Existe urgência para implantação?</span>
         <div class="radio-grid" id="rg-urgencia">
           <button type="button" class="radio-opt" data-group="urgencia" data-val="Sim, preciso resolver isso agora"><span class="radio-dot"></span>Sim, preciso resolver isso agora</button>
@@ -876,20 +893,20 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
           <button type="button" class="radio-opt" data-group="decisor" data-val="Preciso validar com outros"><span class="radio-dot"></span>Preciso validar com outros</button>
         </div>
         <div class="modal-nav">
-          <button class="btn-back" id="back-2">
+          <button class="btn-back" id="back-3">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7H3M6 4L3 7l3 3"/></svg>
             Voltar
           </button>
-          <button class="btn-next" id="next-2">
+          <button class="btn-next" id="next-3">
             Continuar
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
           </button>
         </div>
       </div>
 
-      <!-- Etapa 3 — O desafio -->
-      <div class="ms-step" id="step-3">
-        <h3>O desafio</h3>
+      <!-- Etapa 4 — Desafios -->
+      <div class="ms-step" id="step-4">
+        <h3>Os desafios do negócio</h3>
         <p>Quanto mais específico, melhor nossa equipe prepara a conversa.</p>
         <span class="radio-label">Onde sua operação perde mais tempo hoje? <span style="color:var(--tx-muted);font-size:10px">(selecione até 3)</span></span>
         <div class="radio-grid" id="rg-area">
@@ -905,24 +922,24 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
           <textarea id="f-desafio" name="desafio" placeholder="Ex: meu time perde 2h por dia em relatórios manuais, ou a produção de conteúdo trava toda semana..." rows="3"></textarea>
         </div>
         <div class="modal-nav">
-          <button class="btn-back" id="back-3">
+          <button class="btn-back" id="back-4">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7H3M6 4L3 7l3 3"/></svg>
             Voltar
           </button>
-          <button class="btn-next" id="next-3">
+          <button class="btn-next" id="next-4">
             Continuar
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
           </button>
         </div>
       </div>
 
-      <!-- Etapa 4 — Confirmação -->
-      <div class="ms-step" id="step-4">
+      <!-- Etapa 5 — Confirmação -->
+      <div class="ms-step" id="step-5">
         <h3>Tudo certo.</h3>
         <p>Confirme os dados antes de enviar para nossa equipe.</p>
         <div class="review-list" id="review-list"></div>
         <div class="modal-nav">
-          <button class="btn-back" id="back-4">
+          <button class="btn-back" id="back-5">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7H3M6 4L3 7l3 3"/></svg>
             Voltar
           </button>
@@ -1036,8 +1053,8 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
   var modal=document.getElementById('modal');
   var closeBtn=document.getElementById('modal-close');
   var currentStep=1;
-  var totalSteps=4;
-  var stepLabels=['Contato','Negócio','Desafio','Confirmação'];
+  var totalSteps=5;
+  var stepLabels=['Contato','Empresa','Decisão','Desafios','Confirmação'];
 
   function openModal(){
     modal.classList.add('open');
@@ -1097,7 +1114,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     document.getElementById('prog-label').textContent='Etapa '+n+' de '+totalSteps+' · '+stepLabels[n-1];
     var pb=document.getElementById('prog-bar');
     if(pb)pb.setAttribute('aria-valuenow',n);
-    if(n===4)buildReview();
+    if(n===5)buildReview();
     /* scroll modal to top */
     var box=document.querySelector('.modal-box');
     if(box)box.scrollTop=0;
@@ -1131,6 +1148,8 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
   document.getElementById('back-3').addEventListener('click',function(){goToStep(2)});
   document.getElementById('next-3').addEventListener('click',function(){goToStep(4)});
   document.getElementById('back-4').addEventListener('click',function(){goToStep(3)});
+  document.getElementById('next-4').addEventListener('click',function(){goToStep(5)});
+  document.getElementById('back-5').addEventListener('click',function(){goToStep(4)});
 
   var SUPA_URL='https://evtchedskwnwpioatjet.supabase.co';
   var SUPA_KEY='sb_publishable_PrzJanVd9LnY4RXTpOw1JA_3HguATrj';
