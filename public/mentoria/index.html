@@ -84,15 +84,17 @@ button{cursor:pointer;border:none;background:none;color:inherit}
 .btn-nav:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(240,180,41,.25)}
 
 /* ══════════════════════ HERO ══════════════════════ */
-.m-hero{min-height:100dvh;display:flex;align-items:center;padding-top:68px}
-.m-hero .wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:center;padding-top:40px;padding-bottom:60px}
-.hero-copy .eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:10px}
+.m-hero{display:flex;align-items:flex-start;padding-top:68px}
+.m-hero .wrap{display:flex;flex-direction:column;padding-top:52px;padding-bottom:60px;gap:0}
+.hero-copy .eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .hero-copy .eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
-.hero-h1{font-family:var(--f-display);font-weight:900;font-size:clamp(44px,5.5vw,76px);letter-spacing:-.05em;line-height:.92;color:var(--tx)}
+.hero-h1{font-family:var(--f-display);font-weight:900;font-size:clamp(48px,7.5vw,96px);letter-spacing:-.05em;line-height:.92;color:var(--tx);width:100%;margin-bottom:48px}
 .hero-h1 em{font-style:normal;color:var(--gold-hi)}
+.hero-bottom{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:flex-start}
+.hero-copy-bottom{display:flex;flex-direction:column}
 /* vídeo 9:16 no hero */
-.hero-vsl{position:relative;display:flex;justify-content:center}
-.hero-vsl-inner{position:relative;width:100%;max-width:340px;aspect-ratio:9/16;border-radius:20px;overflow:hidden;border:1px solid rgba(200,150,10,.35);box-shadow:0 0 0 1px rgba(200,150,10,.15),0 48px 90px rgba(0,0,0,.7),0 0 80px rgba(200,150,10,.08);animation:floatwin 5.5s cubic-bezier(.65,0,.35,1) infinite}
+.hero-vsl{position:relative;display:flex;justify-content:center;flex-shrink:0}
+.hero-vsl-inner{position:relative;width:280px;max-width:280px;aspect-ratio:9/16;border-radius:20px;overflow:hidden;border:1px solid rgba(200,150,10,.35);box-shadow:0 0 0 1px rgba(200,150,10,.15),0 48px 90px rgba(0,0,0,.7),0 0 80px rgba(200,150,10,.08);animation:floatwin 5.5s cubic-bezier(.65,0,.35,1) infinite}
 .hero-vsl-inner video{width:100%;height:100%;object-fit:cover;display:block}
 .hero-vsl-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(7,7,13,.35);transition:opacity .3s}
 .hero-vsl-overlay:hover{opacity:.7}
@@ -403,6 +405,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 <section class="m-hero">
   <div class="wrap">
 
+    <!-- headline full-width -->
     <div class="hero-copy">
       <span class="eyebrow">Mentoria especializada · Intus Hub</span>
       <h1 class="hero-h1">
@@ -410,27 +413,33 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
         em acelerar resultados<br>
         <em>com IA.</em>
       </h1>
-      <p class="hero-sub">
-        Nossa equipe técnica mapeia onde sua operação perde tempo e dinheiro. Depois estruturamos uma solução com IA desenhada para o seu negócio e o seu time.
-      </p>
-      <div class="hero-ctas">
-        <button class="btn-primary" id="hero-cta">
-          Solicitar diagnóstico gratuito
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </button>
-        <a href="#vsl" class="btn-secondary">Ver como funciona</a>
-      </div>
     </div>
 
-    <div class="hero-vsl">
-      <div class="hero-vsl-inner">
-        <video id="hero-vsl-video" poster="diego.webp" preload="none" muted playsinline loop width="340" height="604">
-          <source src="#" type="video/mp4">
-        </video>
-        <div class="hero-vsl-overlay" id="hero-vsl-overlay">
-          <button class="hero-vsl-play" id="hero-vsl-play" aria-label="Reproduzir vídeo">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <!-- abaixo: sub+CTAs à esq, vídeo à dir -->
+    <div class="hero-bottom">
+      <div class="hero-copy-bottom">
+        <p class="hero-sub">
+          Nossa equipe técnica mapeia onde sua operação perde tempo e dinheiro. Depois estruturamos uma solução com IA desenhada para o seu negócio e o seu time.
+        </p>
+        <div class="hero-ctas">
+          <button class="btn-primary" id="hero-cta">
+            Solicitar diagnóstico gratuito
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </button>
+          <a href="#vsl" class="btn-secondary">Ver como funciona</a>
+        </div>
+      </div>
+
+      <div class="hero-vsl">
+        <div class="hero-vsl-inner">
+          <video id="hero-vsl-video" poster="diego.webp" preload="none" muted playsinline loop width="280" height="498">
+            <source src="#" type="video/mp4">
+          </video>
+          <div class="hero-vsl-overlay" id="hero-vsl-overlay">
+            <button class="hero-vsl-play" id="hero-vsl-play" aria-label="Reproduzir vídeo">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
