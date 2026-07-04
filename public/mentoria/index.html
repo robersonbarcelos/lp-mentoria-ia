@@ -101,7 +101,9 @@ button{cursor:pointer;border:none;background:none;color:inherit}
 .hero-vsl-play{width:64px;height:64px;background:var(--gold-hi);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 14px rgba(240,180,41,.12);transition:transform .25s var(--ease),box-shadow .25s;will-change:transform}
 .hero-vsl-play:hover{transform:scale(1.1);box-shadow:0 0 0 20px rgba(240,180,41,.16)}
 .hero-vsl-play svg{width:26px;height:26px;color:#07070D;margin-left:4px}
-.hero-sub{font-size:17px;color:var(--tx-soft);line-height:1.65;margin-top:22px;max-width:480px}
+.hero-h2{font-family:var(--f-display);font-weight:900;font-size:clamp(28px,3.5vw,46px);letter-spacing:-.04em;line-height:.95;color:var(--tx);margin-bottom:20px}
+.hero-h2 em{font-style:normal;color:var(--gold-hi)}
+.hero-sub{font-size:17px;color:var(--tx-soft);line-height:1.65;margin-top:0;max-width:480px}
 .hero-ctas{display:flex;align-items:center;gap:14px;margin-top:36px;flex-wrap:wrap}
 .btn-primary{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-body);font-weight:700;font-size:15px;background:var(--gold-hi);color:#07070D;border-radius:var(--r);padding:14px 28px;border:1px solid rgba(255,215,0,.28);box-shadow:0 14px 40px rgba(240,180,41,.18);transition:transform .18s var(--ease),box-shadow .25s var(--ease)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 56px rgba(240,180,41,.28)}
@@ -405,18 +407,23 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 <section class="m-hero">
   <div class="wrap">
 
-    <!-- headline full-width -->
+    <!-- headline gigante full-width -->
     <div class="hero-copy">
       <h1 class="hero-h1">
-        Processos manuais<br>
-        travam o seu negócio<br>
-        <em>e os seus resultados.</em>
+        Mentoria especializada<br>
+        em acelerar resultados<br>
+        <em>com IA.</em>
       </h1>
     </div>
 
-    <!-- abaixo: sub+CTAs à esq, vídeo à dir -->
+    <!-- abaixo: copy à esq, vídeo à dir -->
     <div class="hero-bottom">
       <div class="hero-copy-bottom">
+        <h2 class="hero-h2">
+          Processos manuais<br>
+          travam o seu negócio<br>
+          <em>e os seus resultados.</em>
+        </h2>
         <p class="hero-sub">
           Nossa equipe técnica mapeia onde sua operação perde tempo e dinheiro. Estruturamos e implementamos uma solução com IA desenhada para o seu negócio e o seu time.
         </p>
