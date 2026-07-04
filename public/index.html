@@ -1111,26 +1111,13 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 
   var SUPA_URL='https://evtchedskwnwpioatjet.supabase.co';
   var SUPA_KEY='sb_publishable_PrzJanVd9LnY4RXTpOw1JA_3HguATrj';
-  var TG_TOKEN='8758318754:AAGCstM0fA9kDSUZIXjWuo-mm-BGHQprEFA';
-  var TG_CHAT='688498346';
+  var EDGE_URL='https://evtchedskwnwpioatjet.supabase.co/functions/v1/notify-telegram';
 
   function sendTelegram(p){
-    var msg='🔔 *Novo Lead — Mentoria INTUS HUB*\n\n'
-      +'👤 *Nome:* '+( p.nome||'—')+'\n'
-      +'🏢 *Empresa:* '+(p.empresa||'—')+'\n'
-      +'📧 *Email:* '+(p.email||'—')+'\n'
-      +'📱 *WhatsApp:* '+(p.whatsapp||'—')+'\n'
-      +'🏷 *Segmento:* '+(p.segmento||'—')+'\n'
-      +'💼 *Cargo:* '+(p.cargo||'—')+'\n'
-      +'👥 *Time:* '+(p.time_empresa||'—')+'\n'
-      +'⚡ *Urgência:* '+(p.urgencia||'—')+'\n'
-      +'✅ *Decisor:* '+(p.decisor||'—')+'\n'
-      +'🎯 *Área:* '+(p.area||'—')+'\n'
-      +'📝 *Desafio:* '+(p.gargalo||'—');
-    fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage',{
+    fetch(EDGE_URL,{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({chat_id:TG_CHAT,text:msg,parse_mode:'Markdown'})
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+SUPA_KEY},
+      body:JSON.stringify(p)
     }).catch(function(){});
   }
 
