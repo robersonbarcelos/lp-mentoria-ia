@@ -26,11 +26,12 @@ serve(async (req) => {
 📱 *WhatsApp:* ${r.whatsapp || '—'}
 🏷 *Segmento:* ${r.segmento || '—'}
 💼 *Cargo:* ${r.cargo || '—'}
+💰 *Faturamento:* ${r.faturamento || '—'}
 👥 *Time:* ${r.time_empresa || '—'}
 ⚡ *Urgência:* ${r.urgencia || '—'}
 ✅ *Decisor:* ${r.decisor || '—'}
-🎯 *Área:* ${r.area || '—'}
-📝 *Desafio:* ${r.gargalo || '—'}`
+🎯 *Desafios:* ${r.area || '—'}
+📝 *Observação:* ${r.gargalo || '—'}`
 
     const tgRes = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
       method: 'POST',

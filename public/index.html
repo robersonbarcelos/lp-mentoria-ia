@@ -848,6 +848,13 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
             </select>
           </div>
         </div>
+        <span class="radio-label">Faturamento mensal da empresa</span>
+        <div class="radio-grid" id="rg-faturamento">
+          <button type="button" class="radio-opt" data-group="faturamento" data-val="Até R$ 50 mil/mês"><span class="radio-dot"></span>Até R$ 50 mil/mês</button>
+          <button type="button" class="radio-opt" data-group="faturamento" data-val="R$ 50 mil – R$ 200 mil/mês"><span class="radio-dot"></span>R$ 50 mil – R$ 200 mil/mês</button>
+          <button type="button" class="radio-opt" data-group="faturamento" data-val="R$ 200 mil – R$ 500 mil/mês"><span class="radio-dot"></span>R$ 200 mil – R$ 500 mil/mês</button>
+          <button type="button" class="radio-opt" data-group="faturamento" data-val="Acima de R$ 500 mil/mês"><span class="radio-dot"></span>Acima de R$ 500 mil/mês</button>
+        </div>
         <span class="radio-label">Tamanho do time</span>
         <div class="radio-grid" id="rg-time">
           <button type="button" class="radio-opt" data-group="time" data-val="1 a 5 pessoas"><span class="radio-dot"></span>1 a 5 pessoas</button>
@@ -884,14 +891,14 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       <div class="ms-step" id="step-3">
         <h3>O desafio</h3>
         <p>Quanto mais específico, melhor nossa equipe prepara a conversa.</p>
-        <span class="radio-label">Onde sua operação perde mais tempo hoje?</span>
+        <span class="radio-label">Onde sua operação perde mais tempo hoje? <span style="color:var(--tx-muted);font-size:10px">(selecione até 3)</span></span>
         <div class="radio-grid" id="rg-area">
-          <button type="button" class="radio-opt" data-group="area" data-val="Tarefas repetitivas / processos manuais"><span class="radio-dot"></span>Tarefas repetitivas / processos manuais</button>
-          <button type="button" class="radio-opt" data-group="area" data-val="Produção de conteúdo digital"><span class="radio-dot"></span>Produção de conteúdo digital</button>
-          <button type="button" class="radio-opt" data-group="area" data-val="Relatórios e análise de dados"><span class="radio-dot"></span>Relatórios e análise de dados</button>
-          <button type="button" class="radio-opt" data-group="area" data-val="Vendas e CRM"><span class="radio-dot"></span>Vendas e CRM</button>
-          <button type="button" class="radio-opt" data-group="area" data-val="Atendimento ao cliente"><span class="radio-dot"></span>Atendimento ao cliente</button>
-          <button type="button" class="radio-opt" data-group="area" data-val="Fluxo financeiro"><span class="radio-dot"></span>Fluxo financeiro</button>
+          <button type="button" class="radio-opt multi-opt" data-group="area" data-val="Tarefas repetitivas / processos manuais"><span class="radio-dot"></span>Tarefas repetitivas / processos manuais</button>
+          <button type="button" class="radio-opt multi-opt" data-group="area" data-val="Produção de conteúdo digital"><span class="radio-dot"></span>Produção de conteúdo digital</button>
+          <button type="button" class="radio-opt multi-opt" data-group="area" data-val="Relatórios e análise de dados"><span class="radio-dot"></span>Relatórios e análise de dados</button>
+          <button type="button" class="radio-opt multi-opt" data-group="area" data-val="Vendas e CRM"><span class="radio-dot"></span>Vendas e CRM</button>
+          <button type="button" class="radio-opt multi-opt" data-group="area" data-val="Atendimento ao cliente"><span class="radio-dot"></span>Atendimento ao cliente</button>
+          <button type="button" class="radio-opt multi-opt" data-group="area" data-val="Fluxo financeiro"><span class="radio-dot"></span>Fluxo financeiro</button>
         </div>
         <div class="form-group">
           <label for="f-desafio">Descreva o gargalo principal <span style="color:var(--tx-muted);font-size:9px">(opcional)</span></label>
@@ -1055,14 +1062,29 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
   document.querySelectorAll('.radio-opt').forEach(function(btn){
     btn.addEventListener('click',function(){
       var group=btn.getAttribute('data-group');
-      document.querySelectorAll('.radio-opt[data-group="'+group+'"]').forEach(function(b){b.classList.remove('sel')});
-      btn.classList.add('sel');
+      if(btn.classList.contains('multi-opt')){
+        // multi-seleção: máximo 3
+        if(btn.classList.contains('sel')){
+          btn.classList.remove('sel');
+        } else {
+          var selecionados=document.querySelectorAll('.multi-opt.sel[data-group="'+group+'"]');
+          if(selecionados.length<3) btn.classList.add('sel');
+        }
+      } else {
+        document.querySelectorAll('.radio-opt[data-group="'+group+'"]').forEach(function(b){b.classList.remove('sel')});
+        btn.classList.add('sel');
+      }
     });
   });
 
   function getRadio(group){
     var sel=document.querySelector('.radio-opt.sel[data-group="'+group+'"]');
     return sel?sel.getAttribute('data-val'):'';
+  }
+
+  function getMulti(group){
+    var sels=document.querySelectorAll('.radio-opt.sel[data-group="'+group+'"]');
+    return Array.from(sels).map(function(b){return b.getAttribute('data-val')}).join(', ');
   }
 
   function goToStep(n){
@@ -1093,7 +1115,8 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       ['Tamanho do time',getRadio('time')],
       ['Urgência',getRadio('urgencia')],
       ['Decisor',getRadio('decisor')],
-      ['Área de maior perda',getRadio('area')],
+      ['Faturamento',getRadio('faturamento')],
+      ['Área de maior perda',getMulti('area')],
       ['Gargalo descrito',document.getElementById('f-desafio').value]
     ];
     rl.innerHTML=rows.filter(function(r){return r[1]}).map(function(r){
@@ -1141,7 +1164,8 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       time_empresa:getRadio('time')||null,
       urgencia:getRadio('urgencia')||null,
       decisor:getRadio('decisor')||null,
-      area:getRadio('area')||null,
+      faturamento:getRadio('faturamento')||null,
+      area:getMulti('area')||null,
       gargalo:document.getElementById('f-desafio').value||null
     };
 
