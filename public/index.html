@@ -34,8 +34,8 @@
   --gold:#C8960A;
   --gold-hi:#F0B429;
   --tx:#F0F0F2;
-  --tx-soft:#A8A8BC;
-  --tx-muted:#44445A;
+  --tx-soft:#B8B8CC;
+  --tx-muted:#6B6B88;
   --f-display:"Inter","Helvetica Neue",system-ui,sans-serif;
   --f-body:"Space Grotesk","Avenir Next",system-ui,sans-serif;
   --f-mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
@@ -55,8 +55,8 @@ button,input,textarea,select{font-family:inherit}
 button{cursor:pointer;border:none;background:none;color:inherit}
 
 /* ── reveal ── */
-.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-.rv.in{opacity:1;transform:none}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease);will-change:opacity,transform}
+.rv.in{opacity:1;transform:translateY(0)}
 .rv-2{transition-delay:.1s}.rv-3{transition-delay:.2s}.rv-4{transition-delay:.3s}
 
 /* ── layout ── */
@@ -85,11 +85,20 @@ button{cursor:pointer;border:none;background:none;color:inherit}
 
 /* ══════════════════════ HERO ══════════════════════ */
 .m-hero{min-height:100dvh;display:flex;align-items:center;padding-top:68px}
-.m-hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding-top:40px;padding-bottom:60px}
-.hero-copy .eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.m-hero .wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:center;padding-top:40px;padding-bottom:60px}
+.hero-copy .eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:10px}
 .hero-copy .eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
-.hero-h1{font-family:var(--f-display);font-weight:900;font-size:clamp(38px,5vw,62px);letter-spacing:-.04em;line-height:.95;color:var(--tx)}
-.hero-h1 em{font-style:normal;color:var(--gold)}
+.hero-h1{font-family:var(--f-display);font-weight:900;font-size:clamp(44px,5.5vw,76px);letter-spacing:-.05em;line-height:.92;color:var(--tx)}
+.hero-h1 em{font-style:normal;color:var(--gold-hi)}
+/* vídeo 9:16 no hero */
+.hero-vsl{position:relative;display:flex;justify-content:center}
+.hero-vsl-inner{position:relative;width:100%;max-width:340px;aspect-ratio:9/16;border-radius:20px;overflow:hidden;border:1px solid rgba(200,150,10,.35);box-shadow:0 0 0 1px rgba(200,150,10,.15),0 48px 90px rgba(0,0,0,.7),0 0 80px rgba(200,150,10,.08);animation:floatwin 5.5s cubic-bezier(.65,0,.35,1) infinite}
+.hero-vsl-inner video{width:100%;height:100%;object-fit:cover;display:block}
+.hero-vsl-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(7,7,13,.35);transition:opacity .3s}
+.hero-vsl-overlay:hover{opacity:.7}
+.hero-vsl-play{width:64px;height:64px;background:var(--gold-hi);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 14px rgba(240,180,41,.12);transition:transform .25s var(--ease),box-shadow .25s;will-change:transform}
+.hero-vsl-play:hover{transform:scale(1.1);box-shadow:0 0 0 20px rgba(240,180,41,.16)}
+.hero-vsl-play svg{width:26px;height:26px;color:#07070D;margin-left:4px}
 .hero-sub{font-size:17px;color:var(--tx-soft);line-height:1.65;margin-top:22px;max-width:480px}
 .hero-ctas{display:flex;align-items:center;gap:14px;margin-top:36px;flex-wrap:wrap}
 .btn-primary{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-body);font-weight:700;font-size:15px;background:var(--gold-hi);color:#07070D;border-radius:var(--r);padding:14px 28px;border:1px solid rgba(255,215,0,.28);box-shadow:0 14px 40px rgba(240,180,41,.18);transition:transform .18s var(--ease),box-shadow .25s var(--ease)}
@@ -163,7 +172,7 @@ button{cursor:pointer;border:none;background:none;color:inherit}
 .m-dor{padding:120px 0;background:var(--bg-alt)}
 .m-dor .intro{max-width:580px;margin-bottom:64px}
 .dor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.dor-card{background:var(--surface);border:1px solid var(--border-gold);border-radius:var(--r-lg);padding:36px 32px;position:relative;overflow:hidden;transition:border-color .3s var(--ease),transform .3s var(--ease)}
+.dor-card{background:var(--surface);border:1px solid var(--border-gold);border-radius:var(--r-lg);padding:36px 32px;position:relative;overflow:hidden;transition:border-color .3s,opacity .3s,transform .3s var(--ease);will-change:transform}
 .dor-card:hover{border-color:var(--border-gold-hi);transform:translateY(-4px)}
 .dor-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,150,10,.5),transparent);opacity:0;transition:opacity .3s var(--ease)}
 .dor-card:hover::before{opacity:1}
@@ -212,7 +221,7 @@ button{cursor:pointer;border:none;background:none;color:inherit}
 .m-cases{padding:120px 0;background:var(--bg)}
 .m-cases .intro{max-width:560px;margin-bottom:64px}
 .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
-.case-card{background:var(--surface);border:1px solid var(--border-gold);border-radius:var(--r-lg);padding:40px 36px 0;display:flex;flex-direction:column;transition:border-color .3s var(--ease),transform .3s var(--ease);overflow:hidden}
+.case-card{background:var(--surface);border:1px solid var(--border-gold);border-radius:var(--r-lg);padding:40px 36px 0;display:flex;flex-direction:column;transition:border-color .3s,transform .3s var(--ease);overflow:hidden;will-change:transform}
 .case-card:hover{border-color:var(--border-gold-hi);transform:translateY(-4px)}
 .case-metric{font-family:var(--f-display);font-weight:900;font-size:56px;letter-spacing:-.05em;line-height:1;color:var(--gold);margin-bottom:8px}
 .case-metric-label{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-muted);margin-bottom:24px}
@@ -397,9 +406,9 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     <div class="hero-copy">
       <span class="eyebrow">Mentoria especializada · Intus Hub</span>
       <h1 class="hero-h1">
-        Processos manuais<br>
-        travam o seu negócio<br>
-        <em>e os seus resultados.</em>
+        Mentoria especializada<br>
+        em acelerar resultados<br>
+        <em>com IA.</em>
       </h1>
       <p class="hero-sub">
         Nossa equipe técnica mapeia onde sua operação perde tempo e dinheiro. Depois estruturamos uma solução com IA desenhada para o seu negócio e o seu time.
@@ -413,67 +422,15 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       </div>
     </div>
 
-    <div class="hero-dashboard">
-      <div class="dash-win" role="img" aria-label="Dashboard de diagnóstico de IA empresarial">
-        <div class="dash-scan" aria-hidden="true"></div>
-        <div class="dash-tb">
-          <span class="dt dt1"></span><span class="dt dt2"></span><span class="dt dt3"></span>
-          <span class="dt-title">INTUS IA — DIAGNÓSTICO EMPRESARIAL</span>
-        </div>
-        <div class="dash-body">
-          <div class="dash-left">
-            <div class="term-mini-bar">
-              <span class="tmb-dot tmb1"></span><span class="tmb-dot tmb2"></span><span class="tmb-dot tmb3"></span>
-              <span class="tmb-title">workflow — builder</span>
-            </div>
-            <div class="term-body" id="term-out">
-              <div><span class="t-prompt">$ </span><span class="t-cursor"></span></div>
-            </div>
-          </div>
-          <div class="dash-right">
-            <div class="dr-label">Índice de adoção<br>de IA por setor</div>
-            <div class="hbars">
-              <div class="hrow">
-                <div class="hrow-label">Financeiro <span>68%</span></div>
-                <div class="htrack"><div class="hfill hf1" style="--w:68%"></div></div>
-              </div>
-              <div class="hrow">
-                <div class="hrow-label">Operacional <span>90%</span></div>
-                <div class="htrack"><div class="hfill hf2" style="--w:90%"></div></div>
-              </div>
-              <div class="hrow">
-                <div class="hrow-label">Vendas <span>74%</span></div>
-                <div class="htrack"><div class="hfill hf3" style="--w:74%"></div></div>
-              </div>
-              <div class="hrow">
-                <div class="hrow-label">Marketing <span>95%</span></div>
-                <div class="htrack"><div class="hfill hf4" style="--w:95%"></div></div>
-              </div>
-            </div>
-            <div class="status-dots" aria-hidden="true">
-              <div class="sdot sd-on" style="animation-delay:0s"></div>
-              <div class="sdot sd-on" style="animation-delay:.3s"></div>
-              <div class="sdot sd-on" style="animation-delay:.6s"></div>
-              <div class="sdot sd-off"></div>
-              <div class="sdot sd-on" style="animation-delay:.9s"></div>
-              <div class="sdot sd-off"></div>
-              <div class="sdot sd-on" style="animation-delay:1.2s"></div>
-              <div class="sdot sd-off"></div>
-            </div>
-            <div class="status-list">
-              <div class="sl-row"><span class="sl-name">CRM Auto</span><span class="sl-badge">Live</span></div>
-              <div class="sl-row"><span class="sl-name">Relatórios</span><span class="sl-badge">Live</span></div>
-              <div class="sl-row"><span class="sl-name">Marketing</span><span class="sl-badge">Live</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="dash-bottom" aria-hidden="true">
-          <div class="bb-wrap"><div class="bbar" style="height:36px;background:linear-gradient(180deg,#e8c060,#C8960A);border-radius:3px 3px 0 0;animation:bbrise .7s var(--ease-out) .2s both"></div><span class="bb-label">Jan</span></div>
-          <div class="bb-wrap"><div class="bbar" style="height:52px;background:linear-gradient(180deg,#f0d060,#e0a010);border-radius:3px 3px 0 0;animation:bbrise .7s var(--ease-out) .35s both"></div><span class="bb-label">Fev</span></div>
-          <div class="bb-wrap"><div class="bbar" style="height:26px;background:linear-gradient(180deg,#a07010,#6a4800);border-radius:3px 3px 0 0;animation:bbrise .7s var(--ease-out) .5s both"></div><span class="bb-label">Mar</span></div>
-          <div class="bb-wrap"><div class="bbar" style="height:55px;background:linear-gradient(180deg,#f5e070,#e8c060);border-radius:3px 3px 0 0;animation:bbrise .7s var(--ease-out) .65s both"></div><span class="bb-label">Abr</span></div>
-          <div class="bb-wrap"><div class="bbar" style="height:40px;background:linear-gradient(180deg,#e0b040,#C8960A);border-radius:3px 3px 0 0;animation:bbrise .7s var(--ease-out) .8s both"></div><span class="bb-label">Mai</span></div>
-          <div class="bb-wrap"><div class="bbar" style="height:22px;background:linear-gradient(180deg,#b08020,#7a5800);border-radius:3px 3px 0 0;animation:bbrise .7s var(--ease-out) .95s both"></div><span class="bb-label">Jun</span></div>
+    <div class="hero-vsl">
+      <div class="hero-vsl-inner">
+        <video id="hero-vsl-video" poster="diego.webp" preload="none" muted playsinline loop width="340" height="604">
+          <source src="#" type="video/mp4">
+        </video>
+        <div class="hero-vsl-overlay" id="hero-vsl-overlay">
+          <button class="hero-vsl-play" id="hero-vsl-play" aria-label="Reproduzir vídeo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -1021,6 +978,20 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     }
   }
   setTimeout(next,600);
+})();
+
+/* ── Hero VSL play ── */
+(function(){
+  var btn=document.getElementById('hero-vsl-play');
+  var overlay=document.getElementById('hero-vsl-overlay');
+  var video=document.getElementById('hero-vsl-video');
+  if(!btn||!video)return;
+  btn.addEventListener('click',function(){
+    if(video.src==='#'||!video.src)return;
+    overlay.style.opacity='0';
+    overlay.style.pointerEvents='none';
+    video.play();
+  });
 })();
 
 /* ── VSL play ── */
