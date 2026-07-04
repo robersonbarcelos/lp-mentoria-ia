@@ -1084,9 +1084,49 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
   document.getElementById('next-3').addEventListener('click',function(){goToStep(4)});
   document.getElementById('back-4').addEventListener('click',function(){goToStep(3)});
 
-  document.getElementById('submit-btn').addEventListener('click',function(){
+  var SUPA_URL='https://evtchedskwnwpioatjet.supabase.co';
+  var SUPA_KEY='sb_publishable_PrzJanVd9LnY4RXTpOw1JA_3HguATrj';
+
+  function showSuccess(){
     var inner=document.querySelector('.modal-inner');
     inner.innerHTML='<div style="text-align:center;padding:60px 20px"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" style="margin:0 auto 24px"><circle cx="28" cy="28" r="27" stroke="rgba(200,150,10,.35)" stroke-width="1.5"/><path d="M18 28l7 7 13-13" stroke="#F0B429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><h3 style="font-family:var(--f-display);font-weight:900;font-size:26px;letter-spacing:-.03em;color:var(--tx);margin-bottom:12px">Recebemos seu diagnóstico.</h3><p style="font-size:15px;color:var(--tx-soft);line-height:1.7;max-width:380px;margin:0 auto 32px">Nossa equipe vai revisar e entrar em contato em até 24h pelo WhatsApp que você informou.</p><button class="btn-next" style="max-width:200px;margin:0 auto" onclick="document.getElementById(\'modal\').classList.remove(\'open\');document.body.style.overflow=\'\'">Fechar</button></div>';
+  }
+
+  document.getElementById('submit-btn').addEventListener('click',function(){
+    var btn=document.getElementById('submit-btn');
+    btn.disabled=true;
+    btn.textContent='Enviando...';
+
+    var payload={
+      nome:document.getElementById('f-nome').value||null,
+      empresa:document.getElementById('f-empresa').value||null,
+      email:document.getElementById('f-email').value||null,
+      whatsapp:document.getElementById('f-wpp').value||null,
+      segmento:document.getElementById('f-segmento').value||null,
+      cargo:document.getElementById('f-cargo').value||null,
+      time_empresa:getRadio('time')||null,
+      urgencia:getRadio('urgencia')||null,
+      decisor:getRadio('decisor')||null,
+      area:getRadio('area')||null,
+      gargalo:document.getElementById('f-desafio').value||null
+    };
+
+    fetch(SUPA_URL+'/rest/v1/leads',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey':SUPA_KEY,
+        'Authorization':'Bearer '+SUPA_KEY,
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify(payload)
+    })
+    .then(function(r){
+      showSuccess();
+    })
+    .catch(function(){
+      showSuccess(); /* mostra sucesso mesmo se falhar — não expõe erro ao usuário */
+    });
   });
 })();
 </script>
