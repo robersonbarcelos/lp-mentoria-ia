@@ -104,11 +104,31 @@ button{cursor:pointer;border:none;background:none;color:inherit}
 .hero-h2{font-family:var(--f-display);font-weight:900;font-size:clamp(28px,3.5vw,46px);letter-spacing:-.04em;line-height:.95;color:var(--tx);margin-bottom:20px}
 .hero-h2 em{font-style:normal;color:var(--gold-hi)}
 .hero-sub{font-size:17px;color:var(--tx-soft);line-height:1.65;margin-top:0;max-width:480px}
-.hero-ctas{display:flex;align-items:center;gap:14px;margin-top:36px;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-body);font-weight:700;font-size:15px;background:var(--gold-hi);color:#07070D;border-radius:var(--r);padding:14px 28px;border:1px solid rgba(255,215,0,.28);box-shadow:0 14px 40px rgba(240,180,41,.18);transition:transform .18s var(--ease),box-shadow .25s var(--ease)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 56px rgba(240,180,41,.28)}
-.btn-secondary{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-body);font-weight:600;font-size:15px;background:rgba(200,150,10,.07);color:var(--tx);border-radius:var(--r);padding:14px 28px;border:1px solid var(--border-gold);transition:transform .18s var(--ease),background .25s}
-.btn-secondary:hover{transform:translateY(-2px);background:rgba(200,150,10,.12)}
+.hero-ctas{display:flex;flex-direction:column;align-items:flex-start;gap:14px;margin-top:36px}
+.btn-primary{position:relative;display:inline-flex;align-items:center;gap:4px;padding:18px 40px;border:3px solid transparent;font-size:16px;font-family:var(--f-body);font-weight:700;background-color:transparent;border-radius:100px;color:var(--gold-hi);box-shadow:0 0 0 2px var(--gold-hi);cursor:pointer;overflow:hidden;transition:all .6s cubic-bezier(.23,1,.32,1);text-decoration:none}
+.btn-primary svg{position:absolute;width:22px;fill:var(--gold-hi);z-index:9;transition:all .8s cubic-bezier(.23,1,.32,1)}
+.btn-primary .arr-1{right:16px}
+.btn-primary .arr-2{left:-25%}
+.btn-primary .circle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;background-color:var(--gold-hi);border-radius:50%;opacity:0;transition:all .8s cubic-bezier(.23,1,.32,1)}
+.btn-primary .btn-text{position:relative;z-index:1;transform:translateX(-12px);transition:all .8s cubic-bezier(.23,1,.32,1)}
+.btn-primary:hover{box-shadow:0 0 0 12px transparent;color:#07070D;border-radius:12px}
+.btn-primary:hover .arr-1{right:-25%}
+.btn-primary:hover .arr-2{left:16px}
+.btn-primary:hover .btn-text{transform:translateX(12px)}
+.btn-primary:hover svg{fill:#07070D}
+.btn-primary:active{scale:.95;box-shadow:0 0 0 4px var(--gold-hi)}
+.btn-primary:hover .circle{width:280px;height:280px;opacity:1}
+.btn-secondary{position:relative;display:inline-flex;align-items:center;gap:4px;padding:16px 40px;border:2px solid rgba(240,180,41,.25);font-size:15px;font-family:var(--f-body);font-weight:600;background-color:transparent;border-radius:100px;color:var(--tx-soft);cursor:pointer;overflow:hidden;transition:all .6s cubic-bezier(.23,1,.32,1);text-decoration:none}
+.btn-secondary svg{position:absolute;width:20px;fill:var(--tx-soft);z-index:9;transition:all .8s cubic-bezier(.23,1,.32,1)}
+.btn-secondary .arr-1{right:16px}
+.btn-secondary .arr-2{left:-25%}
+.btn-secondary .circle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;background-color:rgba(240,180,41,.12);border-radius:50%;opacity:0;transition:all .8s cubic-bezier(.23,1,.32,1)}
+.btn-secondary .btn-text{position:relative;z-index:1;transform:translateX(-12px);transition:all .8s cubic-bezier(.23,1,.32,1)}
+.btn-secondary:hover{box-shadow:0 0 0 2px rgba(240,180,41,.4);border-color:transparent;border-radius:12px;color:var(--tx)}
+.btn-secondary:hover .arr-1{right:-25%}
+.btn-secondary:hover .arr-2{left:16px}
+.btn-secondary:hover .btn-text{transform:translateX(12px)}
+.btn-secondary:active{scale:.95}
 
 /* ── Dashboard 3D Motion ── */
 .hero-dashboard{position:relative;display:flex;justify-content:center}
@@ -429,10 +449,17 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
         </p>
         <div class="hero-ctas">
           <button class="btn-primary" id="hero-cta">
-            Solicitar diagnóstico gratuito
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            <span class="circle"></span>
+            <svg class="arr-2" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
+            <span class="btn-text">Solicitar diagnóstico gratuito</span>
+            <svg class="arr-1" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
           </button>
-          <a href="#vsl" class="btn-secondary">Ver como funciona</a>
+          <a href="#vsl" class="btn-secondary">
+            <span class="circle"></span>
+            <svg class="arr-2" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
+            <span class="btn-text">Ver como funciona</span>
+            <svg class="arr-1" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
+          </a>
         </div>
       </div>
 
