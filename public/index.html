@@ -10,6 +10,7 @@
 <meta property="og:description" content="Nossa equipe técnica mapeia os gargalos do seu negócio e entrega o sistema de IA funcionando." />
 <meta property="og:image" content="/diego.jpg" />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preload" as="image" type="image/webp" href="diego.webp" fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" href="fonts/inter-900.woff2" crossorigin fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" href="fonts/space-grotesk-400.woff2" crossorigin>
 <style>
@@ -550,7 +551,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     </div>
     <div class="vsl-inner rv rv-2">
       <div class="vsl-player" id="vsl-player">
-        <video id="vsl-video" poster="/diego.jpg" preload="none">
+        <video id="vsl-video" poster="diego.webp" preload="none" width="1280" height="720">
           <source src="#" type="video/mp4">
         </video>
         <div class="vsl-poster-overlay" id="vsl-overlay">
@@ -773,7 +774,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     </button>
     <div class="modal-inner">
 
-      <div class="prog-bar" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="prog-bar">
+      <div class="prog-bar" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" aria-label="Progresso do formulário" id="prog-bar">
         <div class="prog-step done" id="ps1"></div>
         <div class="prog-step" id="ps2"></div>
         <div class="prog-step" id="ps3"></div>
