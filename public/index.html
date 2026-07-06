@@ -797,7 +797,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       <div class="ms-step" id="step-2">
         <h3>Sobre a empresa</h3>
         <p>Nos ajude a entender o contexto do seu negócio.</p>
-        <div class="form-row" style="margin-bottom:20px">
+        <div class="form-row" style="margin-bottom:12px">
           <div class="form-group" style="margin-bottom:0">
             <label for="f-segmento">Segmento</label>
             <select id="f-segmento" name="segmento">
@@ -813,6 +813,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
               <option>Financeiro</option>
               <option>Outro</option>
             </select>
+            <input type="text" id="f-segmento-outro" placeholder="Qual segmento?" style="display:none;margin-top:8px">
           </div>
           <div class="form-group" style="margin-bottom:0">
             <label for="f-cargo">Seu cargo</label>
@@ -825,6 +826,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
               <option>Analista</option>
               <option>Outro</option>
             </select>
+            <input type="text" id="f-cargo-outro" placeholder="Qual cargo?" style="display:none;margin-top:8px">
           </div>
         </div>
         <span class="radio-label">Faturamento mensal</span>
@@ -834,7 +836,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
           <button type="button" class="radio-opt" data-group="faturamento" data-val="R$ 200 mil – R$ 500 mil/mês"><span class="radio-dot"></span>R$ 200 mil – R$ 500 mil/mês</button>
           <button type="button" class="radio-opt" data-group="faturamento" data-val="Acima de R$ 500 mil/mês"><span class="radio-dot"></span>Acima de R$ 500 mil/mês</button>
         </div>
-        <span class="radio-label">Tamanho do time</span>
+        <span class="radio-label">Tamanho da equipe</span>
         <div class="radio-grid" id="rg-time">
           <button type="button" class="radio-opt" data-group="time" data-val="1 a 5 pessoas"><span class="radio-dot"></span>1 a 5 pessoas</button>
           <button type="button" class="radio-opt" data-group="time" data-val="6 a 20 pessoas"><span class="radio-dot"></span>6 a 20 pessoas</button>
@@ -1067,6 +1069,29 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
   modal.addEventListener('click',function(e){if(e.target===modal)closeModal();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
 
+  /* outro condicional */
+  function setupOutro(selectId,outroId){
+    var sel=document.getElementById(selectId);
+    var inp=document.getElementById(outroId);
+    if(!sel||!inp)return;
+    sel.addEventListener('change',function(){
+      if(sel.value==='Outro'){inp.style.display='block';inp.focus();}
+      else{inp.style.display='none';inp.value='';}
+    });
+  }
+  setupOutro('f-segmento','f-segmento-outro');
+  setupOutro('f-cargo','f-cargo-outro');
+
+  function getSelectVal(selectId,outroId){
+    var sel=document.getElementById(selectId);
+    if(!sel)return '';
+    if(sel.value==='Outro'){
+      var txt=(document.getElementById(outroId)||{}).value||'';
+      return txt.trim()?'Outro: '+txt.trim():'Outro';
+    }
+    return sel.value;
+  }
+
   /* radio cards */
   document.querySelectorAll('.radio-opt').forEach(function(btn){
     btn.addEventListener('click',function(){
@@ -1119,9 +1144,9 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       ['Empresa',document.getElementById('f-empresa').value],
       ['E-mail',document.getElementById('f-email').value],
       ['WhatsApp',document.getElementById('f-wpp').value],
-      ['Segmento',document.getElementById('f-segmento').value],
-      ['Cargo',document.getElementById('f-cargo').value],
-      ['Tamanho do time',getRadio('time')],
+      ['Segmento',getSelectVal('f-segmento','f-segmento-outro')],
+      ['Cargo',getSelectVal('f-cargo','f-cargo-outro')],
+      ['Tamanho da equipe',getRadio('time')],
       ['Urgência',getRadio('urgencia')],
       ['Decisor',getRadio('decisor')],
       ['Faturamento',getRadio('faturamento')],
@@ -1184,12 +1209,12 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       if(!wpp||wpp.replace(/\D/g,'').length<10){markField('f-wpp');erros.push('WhatsApp');}
     }
     if(step===2){
-      var seg=document.getElementById('f-segmento').value;
-      var cargo=document.getElementById('f-cargo').value;
-      if(!seg){markField('f-segmento');erros.push('Segmento');}
-      if(!cargo){markField('f-cargo');erros.push('Cargo');}
+      var seg=getSelectVal('f-segmento','f-segmento-outro');
+      var cargo=getSelectVal('f-cargo','f-cargo-outro');
+      if(!seg||seg==='Outro'){markField('f-segmento');if(seg==='Outro')markField('f-segmento-outro');erros.push('Segmento');}
+      if(!cargo||cargo==='Outro'){markField('f-cargo');if(cargo==='Outro')markField('f-cargo-outro');erros.push('Cargo');}
       if(!getRadio('faturamento')){markGroup('rg-faturamento');erros.push('Faturamento');}
-      if(!getRadio('time')){markGroup('rg-time');erros.push('Tamanho do time');}
+      if(!getRadio('time')){markGroup('rg-time');erros.push('Tamanho da equipe');}
     }
     if(step===3){
       if(!getRadio('urgencia')){markGroup('rg-urgencia');erros.push('Urgência');}
@@ -1252,8 +1277,8 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       empresa:document.getElementById('f-empresa').value||null,
       email:document.getElementById('f-email').value||null,
       whatsapp:document.getElementById('f-wpp').value||null,
-      segmento:document.getElementById('f-segmento').value||null,
-      cargo:document.getElementById('f-cargo').value||null,
+      segmento:getSelectVal('f-segmento','f-segmento-outro')||null,
+      cargo:getSelectVal('f-cargo','f-cargo-outro')||null,
       time_empresa:getRadio('time')||null,
       urgencia:getRadio('urgencia')||null,
       decisor:getRadio('decisor')||null,
