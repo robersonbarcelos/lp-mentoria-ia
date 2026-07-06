@@ -335,11 +335,13 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 .radio-dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold-hi);opacity:0;transition:opacity .2s}
 .radio-opt.sel .radio-dot::after{opacity:1}
 
-/* step 4 — review */
-.review-list{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
-.review-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:12px 16px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--r);font-size:14px}
-.review-key{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);flex-shrink:0}
-.review-val{color:var(--tx);text-align:right;word-break:break-word}
+/* step 7 — review */
+.review-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.review-row{display:flex;flex-direction:column;gap:4px;padding:10px 14px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--r);font-size:14px}
+.review-key{font-family:var(--f-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
+.review-val{color:var(--tx);word-break:break-word;font-size:13px}
+.review-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.review-header p{font-size:14px;color:var(--tx-soft);line-height:1.5;margin:0}
 
 /* tool chips (step 5) */
 .tool-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
@@ -1038,7 +1040,13 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       <!-- Etapa 7 — Confirmação -->
       <div class="ms-step" id="step-7">
         <h3>Tudo certo.</h3>
-        <p>Confirme os dados antes de enviar para nossa equipe.</p>
+        <div class="review-header">
+          <p>Confirme os dados antes de enviar para nossa equipe.</p>
+          <button class="btn-next" id="submit-btn-top" style="flex:0 0 auto;white-space:nowrap;padding:12px 22px;font-size:14px">
+            Confirmar e enviar
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
+          </button>
+        </div>
         <div class="review-list" id="review-list"></div>
         <div class="modal-nav">
           <button class="btn-back" id="back-7">
@@ -1451,10 +1459,11 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     inner.innerHTML='<div style="text-align:center;padding:60px 20px"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" style="margin:0 auto 24px"><circle cx="28" cy="28" r="27" stroke="rgba(200,150,10,.35)" stroke-width="1.5"/><path d="M18 28l7 7 13-13" stroke="#F0B429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><h3 style="font-family:var(--f-display);font-weight:900;font-size:26px;letter-spacing:-.03em;color:var(--tx);margin-bottom:12px">Obrigado por preencher o formulário.</h3><p style="font-size:15px;color:var(--tx-soft);line-height:1.7;max-width:400px;margin:0 auto 20px">Recebemos suas informações. Nossa equipe irá avaliar seu perfil e gerar um diagnóstico da solução que melhor se encaixa no seu caso: seja uma proposta de mentoria personalizada ou outra solução Intus Hub adequada ao seu momento.</p><p style="font-size:14px;color:var(--tx-muted);line-height:1.6;max-width:360px;margin:0 auto 32px">Qualquer dúvida, acesse nosso WhatsApp. Somente esse número irá lhe chamar:<br><strong style="color:var(--gold-hi);font-size:15px">+55 55 9652-6047</strong></p><button class="btn-next" style="max-width:200px;margin:0 auto" onclick="document.getElementById(\'modal\').classList.remove(\'open\');document.body.style.overflow=\'\'">Fechar</button></div>';
   }
 
-  document.getElementById('submit-btn').addEventListener('click',function(){
+  function doSubmit(){
     var btn=document.getElementById('submit-btn');
-    btn.disabled=true;
-    btn.textContent='Enviando...';
+    var btnTop=document.getElementById('submit-btn-top');
+    if(btn){btn.disabled=true;btn.textContent='Enviando...';}
+    if(btnTop){btnTop.disabled=true;btnTop.textContent='Enviando...';}
 
     var payload={
       nome:document.getElementById('f-nome').value||null,
@@ -1492,7 +1501,9 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     .catch(function(){
       showSuccess();
     });
-  });
+  }
+  document.getElementById('submit-btn').addEventListener('click',doSubmit);
+  document.getElementById('submit-btn-top').addEventListener('click',doSubmit);
 })();
 </script>
 </body>
