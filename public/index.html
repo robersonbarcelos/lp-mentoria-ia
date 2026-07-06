@@ -896,7 +896,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
           <button type="button" class="radio-opt multi-opt" data-group="area" data-val="Fluxo financeiro"><span class="radio-dot"></span>Fluxo financeiro</button>
         </div>
         <div class="form-group">
-          <label for="f-desafio">Descreva o gargalo principal <span style="color:var(--tx-muted);font-size:9px">(opcional)</span></label>
+          <label for="f-desafio">Descreva o gargalo principal</label>
           <textarea id="f-desafio" name="desafio" placeholder="Ex: meu time perde 2h por dia em relatórios manuais, ou a produção de conteúdo trava toda semana..." rows="3"></textarea>
         </div>
         <div class="modal-nav">
@@ -1134,20 +1134,30 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
   }
 
   /* validation */
-  function markField(id,ok){
+  function markField(id){
     var el=document.getElementById(id);
     if(!el)return;
-    el.style.borderColor=ok?'':'#ff5f5f';
-    el.style.boxShadow=ok?'':'0 0 0 2px rgba(255,95,95,.18)';
+    el.style.borderColor='#ff5f5f';
+    el.style.boxShadow='0 0 0 2px rgba(255,95,95,.2)';
+  }
+  function markGroup(id){
+    var el=document.getElementById(id);
+    if(!el)return;
+    el.style.outline='2px solid #ff5f5f';
+    el.style.outlineOffset='4px';
+    el.style.borderRadius='8px';
   }
   function clearMarks(){
-    document.querySelectorAll('input,select,textarea').forEach(function(el){
-      el.style.borderColor='';el.style.boxShadow='';
+    document.querySelectorAll('input,select,textarea').forEach(function(el){el.style.borderColor='';el.style.boxShadow='';});
+    ['rg-faturamento','rg-time','rg-urgencia','rg-decisor','rg-area'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){el.style.outline='';el.style.outlineOffset='';el.style.borderRadius='';}
     });
   }
-  function showError(msg,fieldId){
+  function showError(msg,fieldId,groupId){
     clearMarks();
-    if(fieldId)markField(fieldId,false);
+    if(fieldId)markField(fieldId);
+    if(groupId)markGroup(groupId);
     var existing=document.querySelector('.form-error-msg');
     if(existing)existing.remove();
     var el=document.createElement('p');
@@ -1177,17 +1187,19 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       var cargo=document.getElementById('f-cargo').value;
       if(!seg){showError('Selecione o segmento da empresa.','f-segmento');return false;}
       if(!cargo){showError('Selecione seu cargo.','f-cargo');return false;}
-      if(!getRadio('faturamento')){showError('Selecione a faixa de faturamento.');return false;}
-      if(!getRadio('time')){showError('Selecione o tamanho do time.');return false;}
+      if(!getRadio('faturamento')){showError('Selecione a faixa de faturamento.',null,'rg-faturamento');return false;}
+      if(!getRadio('time')){showError('Selecione o tamanho do time.',null,'rg-time');return false;}
       return true;
     }
     if(step===3){
-      if(!getRadio('urgencia')){showError('Selecione a urgência de implantação.');return false;}
-      if(!getRadio('decisor')){showError('Informe se você é o decisor.');return false;}
+      if(!getRadio('urgencia')){showError('Selecione a urgência de implantação.',null,'rg-urgencia');return false;}
+      if(!getRadio('decisor')){showError('Informe se você é o decisor.',null,'rg-decisor');return false;}
       return true;
     }
     if(step===4){
-      if(document.querySelectorAll('.multi-opt.sel[data-group="area"]').length===0){showError('Selecione ao menos um desafio.');return false;}
+      if(document.querySelectorAll('.multi-opt.sel[data-group="area"]').length===0){showError('Selecione ao menos um desafio.',null,'rg-area');return false;}
+      var gargalo=document.getElementById('f-desafio').value.trim();
+      if(!gargalo){showError('Descreva o gargalo principal da operação.','f-desafio');return false;}
       return true;
     }
     return true;
