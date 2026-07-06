@@ -9,6 +9,8 @@
 <meta property="og:title" content="Mentoria IA para Negócios — INTUS HUB" />
 <meta property="og:description" content="Nossa equipe técnica mapeia os gargalos do seu negócio e entrega o sistema de IA funcionando." />
 <meta property="og:image" content="/diego.webp" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://mentoria.intushub.com.br/" />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="preload" as="image" type="image/webp" href="diego.webp" fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" href="fonts/inter-900.woff2" crossorigin fetchpriority="high">
@@ -30,8 +32,8 @@
 /* ── tokens ── */
 :root{
   --bg:#07070D;
-  --bg-alt:#0B0B14;
-  --bg-warm:#0D0C18;
+  --bg-alt:#111020;
+  --bg-warm:#111020;
   --surface:#0F0E1A;
   --border:rgba(255,255,255,.12);
   --border-gold:rgba(200,150,10,.20);
@@ -1390,7 +1392,12 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     });
   });
 
-  /* tool chips */
+  /* tool chips — aria */
+  document.querySelectorAll('.tool-opt').forEach(function(btn){
+    btn.setAttribute('role','checkbox');
+    btn.setAttribute('aria-checked','false');
+    btn.setAttribute('tabindex','0');
+  });
   document.querySelectorAll('.tool-opt').forEach(function(btn){
     btn.addEventListener('click',function(e){
       if(e.target.classList.contains('tool-lvl')){
@@ -1404,14 +1411,18 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
         var wasSelected=btn.classList.contains('sel');
         document.querySelectorAll('.tool-opt').forEach(function(b){
           b.classList.remove('sel');
+          b.setAttribute('aria-checked','false');
           b.querySelectorAll('.tool-lvl').forEach(function(l){l.classList.remove('sel')});
         });
-        if(!wasSelected)btn.classList.add('sel');
+        if(!wasSelected){btn.classList.add('sel');btn.setAttribute('aria-checked','true');}
       } else {
-        document.querySelector('.tool-opt-none').classList.remove('sel');
+        var noneEl=document.querySelector('.tool-opt-none');
+        noneEl.classList.remove('sel');noneEl.setAttribute('aria-checked','false');
         var isOutros=btn.classList.contains('tool-opt-outros');
         btn.classList.toggle('sel');
-        if(!btn.classList.contains('sel')){
+        var checked=btn.classList.contains('sel');
+        btn.setAttribute('aria-checked',checked?'true':'false');
+        if(!checked){
           btn.querySelectorAll('.tool-lvl').forEach(function(l){l.classList.remove('sel')});
           if(isOutros){var oi=document.getElementById('f-tool-outros');oi.style.display='none';oi.value='';}
         } else {
