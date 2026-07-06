@@ -1133,14 +1133,59 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     }).join('');
   }
 
+  /* validation */
+  function showError(msg){
+    var existing=document.querySelector('.form-error-msg');
+    if(existing)existing.remove();
+    var el=document.createElement('p');
+    el.className='form-error-msg';
+    el.textContent=msg;
+    el.style.cssText='color:#ff5f5f;font-size:13px;margin-top:10px;font-weight:600;text-align:center';
+    var activeStep=document.querySelector('.ms-step.active');
+    var nav=activeStep?activeStep.querySelector('.modal-nav'):null;
+    if(nav)nav.parentNode.insertBefore(el,nav);
+    setTimeout(function(){if(el.parentNode)el.remove();},3500);
+  }
+
+  function validate(step){
+    if(step===1){
+      var nome=document.getElementById('f-nome').value.trim();
+      var email=document.getElementById('f-email').value.trim();
+      var wpp=document.getElementById('f-wpp').value.trim();
+      if(!nome){showError('Preencha seu nome.');return false;}
+      if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showError('Informe um e-mail válido.');return false;}
+      if(!wpp||wpp.replace(/\D/g,'').length<10){showError('Informe seu WhatsApp.');return false;}
+      return true;
+    }
+    if(step===2){
+      var seg=document.getElementById('f-segmento').value;
+      var cargo=document.getElementById('f-cargo').value;
+      if(!seg){showError('Selecione o segmento da empresa.');return false;}
+      if(!cargo){showError('Selecione seu cargo.');return false;}
+      if(!getRadio('faturamento')){showError('Selecione a faixa de faturamento.');return false;}
+      if(!getRadio('time')){showError('Selecione o tamanho do time.');return false;}
+      return true;
+    }
+    if(step===3){
+      if(!getRadio('urgencia')){showError('Selecione a urgência de implantação.');return false;}
+      if(!getRadio('decisor')){showError('Informe se você é o decisor.');return false;}
+      return true;
+    }
+    if(step===4){
+      if(document.querySelectorAll('.multi-opt.sel[data-group="area"]').length===0){showError('Selecione ao menos um desafio.');return false;}
+      return true;
+    }
+    return true;
+  }
+
   /* navigation */
-  document.getElementById('next-1').addEventListener('click',function(){goToStep(2)});
+  document.getElementById('next-1').addEventListener('click',function(){if(validate(1))goToStep(2)});
   document.getElementById('back-2').addEventListener('click',function(){goToStep(1)});
-  document.getElementById('next-2').addEventListener('click',function(){goToStep(3)});
+  document.getElementById('next-2').addEventListener('click',function(){if(validate(2))goToStep(3)});
   document.getElementById('back-3').addEventListener('click',function(){goToStep(2)});
-  document.getElementById('next-3').addEventListener('click',function(){goToStep(4)});
+  document.getElementById('next-3').addEventListener('click',function(){if(validate(3))goToStep(4)});
   document.getElementById('back-4').addEventListener('click',function(){goToStep(3)});
-  document.getElementById('next-4').addEventListener('click',function(){goToStep(5)});
+  document.getElementById('next-4').addEventListener('click',function(){if(validate(4))goToStep(5)});
   document.getElementById('back-5').addEventListener('click',function(){goToStep(4)});
 
   var SUPA_URL='https://evtchedskwnwpioatjet.supabase.co';
