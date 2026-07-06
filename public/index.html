@@ -349,9 +349,10 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 .tool-name{font-family:var(--f-body);font-size:15px;font-weight:600;color:var(--tx);pointer-events:none}
 .tool-level-row{display:none;gap:6px;margin-top:10px;flex-wrap:wrap}
 .tool-opt.sel .tool-level-row{display:flex}
-.tool-lvl{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:5px 12px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.tool-lvl{font-family:var(--f-mono);font-size:13px;font-weight:600;color:var(--tx-muted);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,color .15s,border-color .15s;flex-shrink:0}
 .tool-lvl:hover{color:var(--gold-hi);border-color:rgba(200,150,10,.4)}
 .tool-lvl.sel{background:rgba(200,150,10,.18);border-color:rgba(200,150,10,.55);color:var(--gold-hi)}
+.tool-level-row{gap:8px}
 
 /* nav buttons */
 .modal-nav{display:flex;gap:12px;margin-top:24px}
@@ -931,47 +932,63 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
       <!-- Etapa 5 — Ferramentas de IA -->
       <div class="ms-step" id="step-5">
         <h3>Maturidade em IA</h3>
-        <p>Quais ferramentas sua empresa já usa? Marque quantas quiser e indique o nível de cada uma. Pode pular se ainda não usa nenhuma.</p>
+        <p>Marque as ferramentas que usa e indique o nível de 0 a 5 — onde <strong style="color:var(--tx)">0 = não uso</strong> e <strong style="color:var(--tx)">5 = avançado</strong>.</p>
         <div class="tool-grid" id="rg-tools">
           <div class="tool-opt" data-tool="ChatGPT">
             <span class="tool-name">ChatGPT</span>
             <div class="tool-level-row">
-              <button type="button" class="tool-lvl" data-lvl="Básico">Básico</button>
-              <button type="button" class="tool-lvl" data-lvl="Intermediário">Intermediário</button>
-              <button type="button" class="tool-lvl" data-lvl="Avançado">Avançado</button>
+              <button type="button" class="tool-lvl" data-lvl="0">0</button>
+              <button type="button" class="tool-lvl" data-lvl="1">1</button>
+              <button type="button" class="tool-lvl" data-lvl="2">2</button>
+              <button type="button" class="tool-lvl" data-lvl="3">3</button>
+              <button type="button" class="tool-lvl" data-lvl="4">4</button>
+              <button type="button" class="tool-lvl" data-lvl="5">5</button>
             </div>
           </div>
           <div class="tool-opt" data-tool="Claude">
             <span class="tool-name">Claude</span>
             <div class="tool-level-row">
-              <button type="button" class="tool-lvl" data-lvl="Básico">Básico</button>
-              <button type="button" class="tool-lvl" data-lvl="Intermediário">Intermediário</button>
-              <button type="button" class="tool-lvl" data-lvl="Avançado">Avançado</button>
+              <button type="button" class="tool-lvl" data-lvl="0">0</button>
+              <button type="button" class="tool-lvl" data-lvl="1">1</button>
+              <button type="button" class="tool-lvl" data-lvl="2">2</button>
+              <button type="button" class="tool-lvl" data-lvl="3">3</button>
+              <button type="button" class="tool-lvl" data-lvl="4">4</button>
+              <button type="button" class="tool-lvl" data-lvl="5">5</button>
             </div>
           </div>
           <div class="tool-opt" data-tool="Gemini">
             <span class="tool-name">Gemini</span>
             <div class="tool-level-row">
-              <button type="button" class="tool-lvl" data-lvl="Básico">Básico</button>
-              <button type="button" class="tool-lvl" data-lvl="Intermediário">Intermediário</button>
-              <button type="button" class="tool-lvl" data-lvl="Avançado">Avançado</button>
+              <button type="button" class="tool-lvl" data-lvl="0">0</button>
+              <button type="button" class="tool-lvl" data-lvl="1">1</button>
+              <button type="button" class="tool-lvl" data-lvl="2">2</button>
+              <button type="button" class="tool-lvl" data-lvl="3">3</button>
+              <button type="button" class="tool-lvl" data-lvl="4">4</button>
+              <button type="button" class="tool-lvl" data-lvl="5">5</button>
             </div>
           </div>
-          <div class="tool-opt" data-tool="OpenClaw">
-            <span class="tool-name">OpenClaw</span>
+          <div class="tool-opt" data-tool="OpenClaw / Hermes">
+            <span class="tool-name">OpenClaw / Hermes</span>
             <div class="tool-level-row">
-              <button type="button" class="tool-lvl" data-lvl="Básico">Básico</button>
-              <button type="button" class="tool-lvl" data-lvl="Intermediário">Intermediário</button>
-              <button type="button" class="tool-lvl" data-lvl="Avançado">Avançado</button>
+              <button type="button" class="tool-lvl" data-lvl="0">0</button>
+              <button type="button" class="tool-lvl" data-lvl="1">1</button>
+              <button type="button" class="tool-lvl" data-lvl="2">2</button>
+              <button type="button" class="tool-lvl" data-lvl="3">3</button>
+              <button type="button" class="tool-lvl" data-lvl="4">4</button>
+              <button type="button" class="tool-lvl" data-lvl="5">5</button>
             </div>
           </div>
-          <div class="tool-opt" data-tool="Outros">
+          <div class="tool-opt tool-opt-outros" data-tool="Outros">
             <span class="tool-name">Outros</span>
             <div class="tool-level-row">
-              <button type="button" class="tool-lvl" data-lvl="Básico">Básico</button>
-              <button type="button" class="tool-lvl" data-lvl="Intermediário">Intermediário</button>
-              <button type="button" class="tool-lvl" data-lvl="Avançado">Avançado</button>
+              <button type="button" class="tool-lvl" data-lvl="0">0</button>
+              <button type="button" class="tool-lvl" data-lvl="1">1</button>
+              <button type="button" class="tool-lvl" data-lvl="2">2</button>
+              <button type="button" class="tool-lvl" data-lvl="3">3</button>
+              <button type="button" class="tool-lvl" data-lvl="4">4</button>
+              <button type="button" class="tool-lvl" data-lvl="5">5</button>
             </div>
+            <input type="text" class="tool-outros-input" id="f-tool-outros" placeholder="Qual ferramenta?" style="display:none;margin-top:10px;font-size:14px;padding:9px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:var(--tx);width:100%;outline:none">
           </div>
           <div class="tool-opt tool-opt-none" data-tool="nenhuma">
             <span class="tool-name" style="color:var(--tx-muted)">Não uso nenhuma ferramenta de IA</span>
@@ -1235,9 +1252,13 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
         if(!wasSelected)btn.classList.add('sel');
       } else {
         document.querySelector('.tool-opt-none').classList.remove('sel');
+        var isOutros=btn.classList.contains('tool-opt-outros');
         btn.classList.toggle('sel');
         if(!btn.classList.contains('sel')){
           btn.querySelectorAll('.tool-lvl').forEach(function(l){l.classList.remove('sel')});
+          if(isOutros){var oi=document.getElementById('f-tool-outros');oi.style.display='none';oi.value='';}
+        } else {
+          if(isOutros){var oi=document.getElementById('f-tool-outros');oi.style.display='block';setTimeout(function(){oi.focus();},50);}
         }
       }
     });
@@ -1249,8 +1270,12 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
     var parts=[];
     document.querySelectorAll('.tool-opt.sel').forEach(function(btn){
       var tool=btn.getAttribute('data-tool');
+      if(btn.classList.contains('tool-opt-outros')){
+        var txt=(document.getElementById('f-tool-outros')||{}).value||'';
+        tool=txt.trim()?txt.trim():'Outros';
+      }
       var lvlEl=btn.querySelector('.tool-lvl.sel');
-      var lvl=lvlEl?lvlEl.getAttribute('data-lvl'):'';
+      var lvl=lvlEl?'nível '+lvlEl.getAttribute('data-lvl'):'';
       parts.push(lvl?tool+' ('+lvl+')':tool);
     });
     return parts.join(', ');
