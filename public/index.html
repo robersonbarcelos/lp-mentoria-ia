@@ -1171,36 +1171,46 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
   }
 
   function validate(step){
+    clearMarks();
+    var erros=[];
     if(step===1){
       var nome=document.getElementById('f-nome').value.trim();
       var empresa=document.getElementById('f-empresa').value.trim();
       var email=document.getElementById('f-email').value.trim();
       var wpp=document.getElementById('f-wpp').value.trim();
-      if(!nome){showError('Preencha seu nome completo.','f-nome');return false;}
-      if(!empresa){showError('Preencha o nome da empresa.','f-empresa');return false;}
-      if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showError('Informe um e-mail válido.','f-email');return false;}
-      if(!wpp||wpp.replace(/\D/g,'').length<10){showError('Informe seu WhatsApp com DDD.','f-wpp');return false;}
-      return true;
+      if(!nome){markField('f-nome');erros.push('Nome completo');}
+      if(!empresa){markField('f-empresa');erros.push('Empresa');}
+      if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){markField('f-email');erros.push('E-mail válido');}
+      if(!wpp||wpp.replace(/\D/g,'').length<10){markField('f-wpp');erros.push('WhatsApp');}
     }
     if(step===2){
       var seg=document.getElementById('f-segmento').value;
       var cargo=document.getElementById('f-cargo').value;
-      if(!seg){showError('Selecione o segmento da empresa.','f-segmento');return false;}
-      if(!cargo){showError('Selecione seu cargo.','f-cargo');return false;}
-      if(!getRadio('faturamento')){showError('Selecione a faixa de faturamento.',null,'rg-faturamento');return false;}
-      if(!getRadio('time')){showError('Selecione o tamanho do time.',null,'rg-time');return false;}
-      return true;
+      if(!seg){markField('f-segmento');erros.push('Segmento');}
+      if(!cargo){markField('f-cargo');erros.push('Cargo');}
+      if(!getRadio('faturamento')){markGroup('rg-faturamento');erros.push('Faturamento');}
+      if(!getRadio('time')){markGroup('rg-time');erros.push('Tamanho do time');}
     }
     if(step===3){
-      if(!getRadio('urgencia')){showError('Selecione a urgência de implantação.',null,'rg-urgencia');return false;}
-      if(!getRadio('decisor')){showError('Informe se você é o decisor.',null,'rg-decisor');return false;}
-      return true;
+      if(!getRadio('urgencia')){markGroup('rg-urgencia');erros.push('Urgência');}
+      if(!getRadio('decisor')){markGroup('rg-decisor');erros.push('Decisor');}
     }
     if(step===4){
-      if(document.querySelectorAll('.multi-opt.sel[data-group="area"]').length===0){showError('Selecione ao menos um desafio.',null,'rg-area');return false;}
-      var gargalo=document.getElementById('f-desafio').value.trim();
-      if(!gargalo){showError('Descreva o gargalo principal da operação.','f-desafio');return false;}
-      return true;
+      if(document.querySelectorAll('.multi-opt.sel[data-group="area"]').length===0){markGroup('rg-area');erros.push('Desafios (selecione ao menos 1)');}
+      if(!document.getElementById('f-desafio').value.trim()){markField('f-desafio');erros.push('Gargalo principal');}
+    }
+    if(erros.length>0){
+      var existing=document.querySelector('.form-error-msg');
+      if(existing)existing.remove();
+      var el=document.createElement('p');
+      el.className='form-error-msg';
+      el.textContent='⚠ Preencha: '+erros.join(', ')+'.';
+      el.style.cssText='color:#ff5f5f;font-size:13px;margin-top:8px;font-weight:600;text-align:center';
+      var activeStep=document.querySelector('.ms-step.active');
+      var nav=activeStep?activeStep.querySelector('.modal-nav'):null;
+      if(nav)nav.parentNode.insertBefore(el,nav);
+      setTimeout(function(){if(el.parentNode)el.remove();clearMarks();},4000);
+      return false;
     }
     return true;
   }
